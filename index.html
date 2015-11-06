@@ -75,18 +75,31 @@
 				</section>
 
 				<section>
-					<h2>what is a container?</h2>
-					<p>
-					<img src="container.jpg">
-				    <aside class="notes">
-			    		<ul>
-							<li>Conceptually - refers to shipyard - random sized objects</li>
-							<li>naturally portable - lorry/ship/train</li>
-						 	<li>An image is built as a series of files/changes/steps executed. A container is an instance of that image during runtime.</li>
-						</ul>
-				    	
-					</aside>
-					</p>
+					<section>
+						<h2>what is a container?</h2>
+						<p>
+							<img src="container.jpg">
+							
+						</p>
+						<p>..it's not a vm..</p>
+						<aside class="notes">
+							<ul>
+								<li>Conceptually - refers to shipyard - random sized objects</li>
+								<li>naturally portable - lorry/ship/train</li>
+								<li>An image is built as a series of files/changes/steps executed. A container is an instance of that image during runtime.</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<p>
+							<img src="vm.png" width="60%">
+						</p>
+					</section>
+					<section>
+						<p>
+							<img src="dockervsvm.png" width="60%">
+						</p>
+					</section>
 
 				</section>
 
@@ -186,9 +199,7 @@
 						## docker client
 						### for containers
 						```
-						docker ps
-						
-						docker stop/kill
+						docker ps				
 						
 						docker stop/kill
 
@@ -201,36 +212,125 @@
 					</script>
 				</section>
 
-				<section data-markdown>
+				<section>
+					<section>
+						<h2>Apps - coding</h2>
+						<table class="reveal">
+						<tr>
+						  <td>SQL</td>
+						  <td>Postgres, MySQL, sqlite</td>
+						</tr>
+						<tr>
+						  <td>NoSQL</td>
+						  <td>mongo, redis, memcachd</td>
+						</tr>
+						<tr>
+						  <td>source</td>
+						  <td>git/svn/tfs</td>
+						</tr>
+						<tr>
+						  <td>CI</td>
+						  <td>travis, Jenkins</td>
+						</tr>
+						<tr>
+						  <td>languages</td>
+						  <td>.NET, Node.JS, Python, Perl, Ruby, PHP, Java</td>
+						</tr>
+					  </table>
+					</section>
+					<section>
+						<h2>Apps - network admin</h2>
+						<table class="reveal">
+						<tr>
+						  <td>services</td>
+						  <td>nginx, apache, squid proxy</td>
+						</tr>
+						<tr>
+						  <td>timers/job control</td>
+						  <td>cron, systemd</td>
+						</tr>
+						<tr>
+						  <td>remote admin</td>
+						  <td>ssh*</td>
+						</tr>
+					  </table>
+					</section>
+					<section>
+						<h2>Apps - at home</h2>
+						<table class="reveal">
+						<tr>
+						  <td>cloud</td>
+						  <td>owncloud, gitlab</td>
+						</tr>
+						<tr>
+						  <td>backup/file-server</td>
+						  <td>samba, ftp, tar/gz</td>
+						</tr>
+						<tr>
+						  <td>dev environment</td>
+						  <td>mongodb server, APIs, node.js server</td>
+						</tr>
+					  </table>
+					</section>
+				</section>
+ 
+				<section data-markdown data-notes='^Notes:' data-vertical='^_' >
 					<script type="text/template">
-						## Software
-
-						### (no)sql
-
-						mongo, redis, sqlite
-
-						### source control
-
-						git/svn/subversion/tfs
-
-						###CI
-
-						travis, Jenkins
-
-						### Code
-
-						node.js, python, perl, ruby, Oracle Java
-
-
-						Even .NET*
-					<aside class="notes">
-						Is mono finished? Mostly.
-						.NET core - ASP.NET 5 / Visual Studio Code
-
-					</aside>
+						## dockerfile
+						```
+						FROM ubuntu:latest
+						MAINTAINER alexellis2@gmail.com
+						
+						RUN apt-get -y update && \
+						    apt-get -qy install curl nodejs git ssh
+						  
+						ADD ./clone_and_run_app.sh /clone_and_run_app.sh
+						
+						CMD ["clone_and_run_app.sh"]
+						```
+						<aside class="notes" data-markdown>
+							Each step = 1x image
+							Less = better
+							ADD 
+							RUN vs. CMD
+						</aside>
 					</script>
 				</section>
+				
+				<section>
+					<section>
+						<h2>Maintenance</h2>
+						<img src="trieste.gif" width=70%>
+					</section>
+					
+				<section>
 
+				<table>
+				<h3>key commands</h3>
+					<thead>
+						<th>command</th>
+						<th>result</th>
+					</thead>
+				<tr>
+					<td><code>docker images|grep '&ltnone&gt;'|xargs docker -f rmi</code></td>
+					<td>purge old images</td>
+				</tr>
+				<tr>
+					<td><code>docker ps -aq | xargs docker rm</code></td>
+					<td>purge stopped containers</td>
+				</tr>
+				<tr>
+					<td><code>df -h /</td>
+					<td>disk space</td>
+				</tr>
+				<tr>
+					<td><code>free -h</code></td>
+					<td>memory usage</td>
+				</tr>
+				</table>
+				</section>
+			</section>
+					
 				<section style="text-align: left;">
 					<h1>OVER TO YOU</h1>
 					<p>
