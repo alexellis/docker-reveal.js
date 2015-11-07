@@ -302,23 +302,31 @@
 						<h2>Maintenance</h2>
 						<img src="trieste.gif" width=70%>
 					</section>
-					
 				<section>
-
-				<table>
 				<h3>key commands</h3>
+				<table>
 					<thead>
 						<th>command</th>
 						<th>result</th>
 					</thead>
 				<tr>
-					<td><code>docker images|grep '&ltnone&gt;'|xargs docker -f rmi</code></td>
-					<td>purge old images</td>
+					<td><code>docker images -q --filter "dangling=true"|xargs docker rmi -f</code></td>
+					<td>purge untagged images</td>
 				</tr>
 				<tr>
 					<td><code>docker ps -aq | xargs docker rm</code></td>
 					<td>purge stopped containers</td>
 				</tr>
+				</table>
+				</section>
+					
+				<section>
+				<h3>key bash/*NIX commands</h3>
+				<table>
+					<thead>
+						<th>command</th>
+						<th>result</th>
+					</thead>
 				<tr>
 					<td><code>df -h /</td>
 					<td>disk space</td>
@@ -327,8 +335,13 @@
 					<td><code>free -h</code></td>
 					<td>memory usage</td>
 				</tr>
+				<tr>
+					<td><code>tr "\n" " "</code></td>
+					<td>translate new lines to spaces</td>
+				</td>
 				</table>
 				</section>
+
 			</section>
 					
 				<section style="text-align: left;">
