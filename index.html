@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 
 	<head>
@@ -49,27 +48,47 @@
 				</section>
 
 				<section>
-					<h2>What is docker?</h2>
-					<img src="whale.png"/>
-					<p>
-						A <i>hot</i> virtualization tool for running applications in an isolated, scriptable and repeatable space.
-					</p>
+					<section>
+						<h2>What is docker?</h2>
+						<img src="whale.png"/>
+						<p>
+							Platform for virtualization.
+						</p>
+						<aside class="notes">
+						<ul>
+						 	<li>Founded in 2010 - open source</li>
+						 	<li>Picked by OpenContainer Initiative as _the_ container standard</li>
+						 	<li>Runs Linux apps, but Win 2016 is coming</li>
+						</ul>
+						</aside>
+					</section>
+					<section>
+						<h3>OpenContainer Initiative</h3>
+						<p>
+							<b>Amazon</b>, Apcera, <b>Cisco</b>, CoreOS, Docker, EMC, Fujitsu Limited, <b>Goldman Sachs</b>, <b>Google</b>, HP, Huawei, <b>IBM</b>, Intel, Joyent, Linux Foundation, Mesosphere, <b>Microsoft</b>, Pivotal, Rancher Labs, Red Hat and VMware
+						</p>
+						<aside class="notes">
+						<ul>
+						 	<li>Huge names behind this</li>
+						 	<li>We should look at use-cases for our business</li>
+					 	</ul>
+					 	</aside>
+					</section>
 				</section>
 				<section>
-					<h2>View from 10,000ft?</h2>
+					<h2>Containerization</h2>
 					<p>
 					<ul>
-						<li>starts, manages and builds images of Linux applications</li>
-						<li>trendy/disruptive but <b>not new</b></li>
-						<li>tools are multi-platform</li>
+						<li>Package app and dependencies into single unit</li>
+						<li>Same on any environment</li>
+						<li>Cross-platform</li>
+						<li>Lightweight</li>
 					</ul>
 					<aside class="notes">
-					<ul>
-					 	<li>Yes does only execute Linux applications</li>
-					 	<li>CLI</li>
-					 	<li>Not new - UNIX BSD jails / OpenVZ</li>
-					 	<li>ever heard of a VPS?</li>
-					</ul>
+						<ul>
+							<li>We had this already in chroot (1979, BSD jails (2005) and Solaris</li>
+							<li>docker gives us a standard scriptable, repeatable toolchain</li>
+						</ul>
 					</aside>
 					</p>
 				</section>
@@ -84,21 +103,43 @@
 						<p>..it's not a vm..</p>
 						<aside class="notes">
 							<ul>
-								<li>Conceptually - refers to shipyard - random sized objects</li>
+								<li>analogy of shipyard - how to pack randomly sized objects</li>
 								<li>naturally portable - lorry/ship/train</li>
-								<li>An image is built as a series of files/changes/steps executed. A container is an instance of that image during runtime.</li>
+								<li>solves deployment problems, lends itself to scaling, scripting, repeatability</li>
 							</ul>
 						</aside>
 					</section>
 					<section>
+						<h4>
+							..vms look like
+						</h4>
 						<p>
-							<img src="vm.png" width="60%">
+							<img src="vm.png">
 						</p>
+						<aside class="notes">
+							<ul>
+								<li>often a full OS - heavy on disk space</li>
+								<li>start/stop can take minutes</li>
+								<li>uses lots of CPU/memory</li>
+								<li>data integrity can be lost</li>
+							</ul>
+						</aside>
 					</section>
 					<section>
+						<h4>
+							containers look like..
+						</h4>
 						<p>
 							<img src="dockervsvm.png" width="60%">
 						</p>
+						<aside class="notes">
+							<ul>
+								<li>base ubuntu - 200mb</li>
+								<li>add node.js and our app - tiny</li>
+								<li>composed of several steps - each step immutable</li>
+								<li>start/stop in seconds</li>
+							</ul>
+						</aside>
 					</section>
 
 				</section>
@@ -106,7 +147,6 @@
 				<section>
 					<h2>getting docker</h2>
 					<p>
-						<h3>docker is a toolchain</h3>
 						<ul>
 							<li>docker toolbox</li>
 							<li>docker machine</li>
@@ -114,6 +154,8 @@
 							<li>docker engine</li>
 							<li>docker-compose</li>
 						</ul>
+						<p>&nbsp;</p>
+						<h4>docker is a toolchain</h4>
 				    <aside class="notes">
 				    <ul>
 				    	<li>If on mac/windows likely to encounter tools in this order.</li>
@@ -167,7 +209,11 @@
 
 							```
 							<aside class="notes" data-markdown>
-								If in doubt, always get the Dockerfile and rebuild from scratch. Be careful of base docker files
+								Not all [official].
+								If in doubt, 
+								get the Dockerfile
+								rebuild from scratch.
+								(base files)
 							</aside>
 						</script>
 					</section>
@@ -194,6 +240,7 @@
 					</section>
 				</section>
 
+			<section >
 				<section data-markdown>
 					<script type="text/template">
 						## docker client
@@ -211,10 +258,27 @@
 						```
 					</script>
 				</section>
+				<section data-markdown>
+					<script type="text/template">
+						### docker ps
+						```
+						CONTAINER ID    IMAGE                COMMAND            CREATED    
+						dfb0667a0369    mononunitslave "/usr/sbin/sshd -D"      2 minutes ago
+						8fc98aabc31b    jenkins        "/bin/tini -- /usr/lo"   21 hours ago
+						1abf55b06008    node-chrome    "/opt/bin/entry_point"   5 days ago 
+						365a940aeb04    selenium/hub   "/opt/bin/entry_point"   5 days ago 
+						```
+					</script>
+				</section>
+			</section >
+
 
 				<section>
 					<section>
-						<h2>Apps - coding</h2>
+						<h2>What runs on Linux?</h2>
+					</section>
+					<section>
+						<h2>Coding</h2>
 						<table class="reveal">
 						<tr>
 						  <td>SQL</td>
@@ -239,7 +303,7 @@
 					  </table>
 					</section>
 					<section>
-						<h2>Apps - network admin</h2>
+						<h2>Network admin</h2>
 						<table class="reveal">
 						<tr>
 						  <td>services</td>
@@ -256,19 +320,23 @@
 					  </table>
 					</section>
 					<section>
-						<h2>Apps - at home</h2>
+						<h2>Home network</h2>
 						<table class="reveal">
 						<tr>
 						  <td>cloud</td>
 						  <td>owncloud, gitlab</td>
 						</tr>
 						<tr>
-						  <td>backup/file-server</td>
-						  <td>samba, ftp, tar/gz</td>
+						  <td>NAS</td>
+						  <td>samba, ftp, sftp, tar/gz</td>
+						</tr>
+						<tr>
+						<td>Media</td>
+						<td>AirPlay server, Plex</td>
 						</tr>
 						<tr>
 						  <td>dev environment</td>
-						  <td>mongodb server, APIs, node.js server</td>
+						  <td>mongodb, node.js/express, ruby on rails</td>
 						</tr>
 					  </table>
 					</section>
@@ -293,6 +361,7 @@
 							Less = better
 							ADD 
 							RUN vs. CMD
+							No conditions/loops
 						</aside>
 					</script>
 				</section>
@@ -300,57 +369,66 @@
 				<section>
 					<section>
 						<h2>Maintenance</h2>
-						<img src="trieste.gif" width=70%>
+						<img src="trieste.gif" width="70%" />
 					</section>
-				<section>
-				<h3>key commands</h3>
-				<table>
-					<thead>
-						<th>command</th>
-						<th>result</th>
-					</thead>
-				<tr>
-					<td><code>docker images -q --filter "dangling=true"|xargs docker rmi -f</code></td>
-					<td>purge untagged images</td>
-				</tr>
-				<tr>
-					<td><code>docker ps -aq | xargs docker rm</code></td>
-					<td>purge stopped containers</td>
-				</tr>
-				</table>
-				</section>
-					
-				<section>
-				<h3>key bash/*NIX commands</h3>
-				<table>
-					<thead>
-						<th>command</th>
-						<th>result</th>
-					</thead>
-				<tr>
-					<td><code>df -h /</td>
-					<td>disk space</td>
-				</tr>
-				<tr>
-					<td><code>free -h</code></td>
-					<td>memory usage</td>
-				</tr>
-				<tr>
-					<td><code>tr "\n" " "</code></td>
-					<td>translate new lines to spaces</td>
-				</td>
-				</table>
-				</section>
+					<section class="present">
+						<h3>key commands</h3>
+						<table>
+							<thead>
+							<tr>
+								<th>command</th>
+								<th>result</th>
+							</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>docker images -q --filter "dangling=true"|xargs docker rmi -f</code></td>
+									<td>purge untagged images</td>
+								</tr>
+								<tr>
+									<td><code>docker ps -aq | xargs docker rm</code></td>
+									<td>purge stopped containers</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+						
+					<section>
+						<h3>key bash/*NIX commands</h3>
+						<table>
+							<thead>
+							<tr>
+								<th>command</th>
+								<th>result</th>
+							</tr>
+							</thead>
+						<tbody>
+						<tr>
+							<td><code>df -h /</td>
+							<td>disk space</td>
+						</tr>
+						<tr>
+							<td><code>free -h</code></td>
+							<td>memory usage</td>
+						</tr>
+						<tr>
+							<td><code>tr "\n" " "</code></td>
+							<td>translate new lines to spaces</td>
+						</tr>
+
+						</tbody>
+						</table>
+					</section>
 
 			</section>
 					
-				<section style="text-align: left;">
-					<h1>OVER TO YOU</h1>
-					<p>
-						- <a href="http://docker.io">Download the toolbox</a> <br>
-						- <a href="http://github.com">Clone a repo</a> <br>
-					</p>
-				</section>
+			<section style="text-align: left;">
+				<h1>OVER TO YOU</h1>
+				<p>
+					- <a href="http://docker.io">Download the toolbox</a> <br>
+					- <a href="http://github.com">Clone a repo</a> <br>
+				</p>
+			</section>
 
 			</div>
 
