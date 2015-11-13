@@ -100,7 +100,8 @@
 							<img src="container.jpg">
 							
 						</p>
-						<p>..it's not a vm..</p>
+
+						<p><span class="fragment" data-fragment-index="0">..it's not a vm..</span></p>
 						<aside class="notes">
 							<ul>
 								<li>analogy of shipyard - how to pack randomly sized objects</li>
@@ -156,14 +157,13 @@
 						</ul>
 						<p>&nbsp;</p>
 						<h4>docker is a toolchain</h4>
+					</p>
 				    <aside class="notes">
 				    <ul>
 				    	<li>If on mac/windows likely to encounter tools in this order.</li>
 				    	<li>http_proxy is a pain, we will come back to this</li>
 			    	</ul>
 				    </aside>
-					</p>
-
 				</section>
 				<section>
 					<section data-markdown>
@@ -176,6 +176,7 @@
 							docker login
 							docker pull
 							docker push
+							docker history
 
 							docker run -ti  [run and connect to keyboard]
 							           -d   [run in background]
@@ -190,6 +191,7 @@
 					</section>
 					<section data-markdown data-notes='^Notes:' data-vertical='^_' >
 						<script type="text/template">
+							## Docker hub
 							`docker search node`
 
 							```
@@ -241,7 +243,7 @@
 				</section>
 
 			<section >
-				<section data-markdown>
+				<section data-markdown data-notes='^Notes:' data-vertical='^_' >
 					<script type="text/template">
 						## docker client
 						### for containers
@@ -252,10 +254,15 @@
 
 						docker inspect
 
-						docker info
-
 						docker logs
+
 						```
+						<aside class="notes" data-markdown>
+							inspect - useful 
+							for ports/inspect
+
+							logs - stdout/stderr
+							</aside>
 					</script>
 				</section>
 				<section data-markdown>
@@ -271,109 +278,219 @@
 					</script>
 				</section>
 			</section >
-
-
 				<section>
 					<section>
 						<h2>What runs on Linux?</h2>
+						<aside class="notes">More than you think.</aside>
 					</section>
 					<section>
 						<h2>Coding</h2>
 						<table class="reveal">
-						<tr>
-						  <td>SQL</td>
-						  <td>Postgres, MySQL, sqlite</td>
-						</tr>
-						<tr>
-						  <td>NoSQL</td>
-						  <td>mongo, redis, memcachd</td>
-						</tr>
-						<tr>
-						  <td>source</td>
-						  <td>git/svn/tfs</td>
-						</tr>
-						<tr>
-						  <td>CI</td>
-						  <td>travis, Jenkins</td>
-						</tr>
-						<tr>
-						  <td>languages</td>
-						  <td>.NET, Node.JS, Python, Perl, Ruby, PHP, Java</td>
-						</tr>
+						<tbody>
+							<tr>
+							  <td>SQL</td>
+							  <td>Postgres, MySQL, sqlite</td>
+							</tr>
+							<tr>
+							  <td>NoSQL</td>
+							  <td>mongo, redis, memcachd</td>
+							</tr>
+							<tr>
+							  <td>source</td>
+							  <td>git/svn/tfs</td>
+							</tr>
+							<tr>
+							  <td>CI</td>
+							  <td>travis, Jenkins</td>
+							</tr>
+							<tr>
+							  <td>languages</td>
+							  <td>.NET, Node.JS, Python, Perl, Ruby, PHP, Java</td>
+							</tr>
+						</tbody>
 					  </table>
 					</section>
 					<section>
 						<h2>Network admin</h2>
 						<table class="reveal">
-						<tr>
-						  <td>services</td>
-						  <td>nginx, apache, squid proxy</td>
-						</tr>
-						<tr>
-						  <td>timers/job control</td>
-						  <td>cron, systemd</td>
-						</tr>
-						<tr>
-						  <td>remote admin</td>
-						  <td>ssh*</td>
-						</tr>
+						<tbody>
+							<tr>
+							  <td>services</td>
+							  <td>nginx, apache, squid proxy</td>
+							</tr>
+							<tr>
+							  <td>timers/job control</td>
+							  <td>cron, systemd</td>
+							</tr>
+							<tr>
+							  <td>remote admin</td>
+							  <td>ssh*</td>
+							</tr>
+						</tbody>
 					  </table>
 					</section>
 					<section>
 						<h2>Home network</h2>
 						<table class="reveal">
-						<tr>
-						  <td>cloud</td>
-						  <td>owncloud, gitlab</td>
-						</tr>
-						<tr>
-						  <td>NAS</td>
-						  <td>samba, ftp, sftp, tar/gz</td>
-						</tr>
-						<tr>
-						<td>Media</td>
-						<td>AirPlay server, Plex</td>
-						</tr>
-						<tr>
-						  <td>dev environment</td>
-						  <td>mongodb, node.js/express, ruby on rails</td>
-						</tr>
+						<tbody>
+							<tr>
+							  <td>cloud</td>
+							  <td>owncloud, gitlab</td>
+							</tr>
+							<tr>
+							  <td>NAS</td>
+							  <td>samba, ftp, sftp, tar/gz</td>
+							</tr>
+							<tr>
+							<td>Media</td>
+							<td>AirPlay server, Plex</td>
+							</tr>
+							<tr>
+							  <td>dev environment</td>
+							  <td>mongodb, node.js/express, ruby on rails</td>
+							</tr>
+						</tbody>
 					  </table>
 					</section>
 				</section>
  
-				<section data-markdown data-notes='^Notes:' data-vertical='^_' >
-					<script type="text/template">
-						## dockerfile
-						```
-						FROM ubuntu:latest
-						MAINTAINER alexellis2@gmail.com
-						
-						RUN apt-get -y update && \
-						    apt-get -qy install curl nodejs git ssh
-						  
-						ADD ./clone_and_run_app.sh /clone_and_run_app.sh
-						
-						CMD ["clone_and_run_app.sh"]
-						```
-						<aside class="notes" data-markdown>
-							Each step = 1x image
-							Less = better
-							ADD 
-							RUN vs. CMD
-							No conditions/loops
-						</aside>
-					</script>
-				</section>
+ 				<section>
+					<section data-markdown data-notes='^Notes:' data-vertical='^_' >
+						<script type="text/template">
+							## dockerfile
+							```
+							FROM ubuntu:latest
+							MAINTAINER alexellis2@gmail.com
+							
+							RUN apt-get -y update && \
+							    apt-get -qy install curl nodejs git ssh
+							  
+							ADD ./app.js /app.js
+							EXPOSE 3000
+							CMD ["/usr/bin/node", "app.js"]
+							```
+							<aside class="notes" data-markdown>
+							    Most examples with ubuntu
+							    Package manager is easy
+								Each step = 1x image
+								Less = better
+								No conditions/loops
+							</aside>
+						</script>
+					</section>
+					<section>
+					<h4>app.js</h4>
+<pre><code class="hljs" data-trim contenteditable>
+var http = require('http'); 
+http.createServer(function (req, res) {  
+  	res.writeHead(200, {'Content-Type': 'text/plain'});
+  	res.end('Hello World\n');
+}).listen(3000);
+
+console.log('Server running at http://0.0.0.0:3000/');  
+</code></pre>
+					</section>
+					<section>
+							<h3>Basics</h3>
+							<table class="reveal">
+								<thead>
+								<tr>
+									<th>command</th>
+									<th>result</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td><code>RUN</code></td>
+									<td>execute step</td>
+								</tr>
+								<tr>
+									<td><code>ADD</code></td>
+									<td>push local files into container</td>
+								</tr>
+								<tr>
+									<td><code>WORKDIR</code></td>
+									<td>change directory</td>
+								</tr>
+								<tr>
+									<td><code>ENV</code></td>
+									<td>Environmental variable (proxy etc)</td>
+								</tr>
+								<tr>
+									<td><code>CMD</code></td>
+									<td>Start-up command</td>
+								</tr>
+								<tr>
+									<td><code>EXPOSE</code></td>
+									<td>Network port</td>
+								</tr>
+							</tbody>
+							</table>
+					</section>
+					<section>
+							<h3>Installing software</h3>
+							<table class="reveal">
+								<thead>
+								<tr>
+									<th>command</th>
+									<th>result</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td><code>apt-get update</code></td>
+									<td>get the latest list of mirrors and packages</td>
+								</tr>
+								<tr>
+									<td><code>apt-get -qy install package</code></td>
+									<td>install one or more packages</td>
+								</tr>
+								<tr>
+									<td><code>apt-key add</code></td>
+									<td>get vendor's own repository</td>
+								</tr>
+								<tr>
+									<td><code>dpkg -s package</code></td>
+									<td>find installed version</td>
+								</tr>
+							</tbody>
+							</table>
+					</section>
+					<section style="text-align: left;">
+						<h1>Demo</h1>
+						<p>
+						<code>docker build -t nodejs-app .</code>
+						</p>
+						<p>
+						<code>docker run -d -P nodejs-app</code>
+						</p>
+					</section>
+			</section>
+<!-- 				<section>
+					<h3>Getting started</h3>
+					<ul>
+						<li>Install <a href="http://docker.io">Docker toolbox</a> or grab our VM</li>
+
+						<li>Install git for Windows (git bash)</li>
+
+						<li>ssh-keygen, ssh-copy-id to host</li>
+					</ul>
+				</section> -->
 				
 				<section>
 					<section>
 						<h2>Maintenance</h2>
 						<img src="trieste.gif" width="70%" />
+						<aside class="notes">
+							<p>Containers never go away, just build up</p>
+							<p>Intermediate images can also build up</p>
+							Always tag and clean up... 
+						</aside>
 					</section>
-					<section class="present">
-						<h3>key commands</h3>
-						<table>
+					<section class="present" style="th { color:white } ">
+						<h3>Commands</h3>
+						<h4>Use with xargs for clean up</h4>
+						<table class="reveal">
 							<thead>
 							<tr>
 								<th>command</th>
@@ -382,46 +499,41 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td><code>docker images -q --filter "dangling=true"|xargs docker rmi -f</code></td>
-									<td>purge untagged images</td>
+									<td><code>docker info</code></td>
+									<td>overview of version/usage</td>
+								</tr>
+													
+								<tr>
+									<td><code>docker images -q --filter "dangling=true"</code></td>
+									<td>find untagged image ids</td>
 								</tr>
 								<tr>
-									<td><code>docker ps -aq | xargs docker rm</code></td>
-									<td>purge stopped containers</td>
+									<td><code>docker ps -aq</code></td>
+									<td>find all container ids</td>
+								</tr>
+								<tr>
+									<td><code>docker save/load</code></td>
+									<td>export to tar.gz</td>
 								</tr>
 							</tbody>
 						</table>
+						<aside class="notes">
+							Do this on a regular basis
+							Pipe it into xargs
+						</aside>
 					</section>
-						
-					<section>
-						<h3>key bash/*NIX commands</h3>
-						<table>
-							<thead>
-							<tr>
-								<th>command</th>
-								<th>result</th>
-							</tr>
-							</thead>
-						<tbody>
-						<tr>
-							<td><code>df -h /</td>
-							<td>disk space</td>
-						</tr>
-						<tr>
-							<td><code>free -h</code></td>
-							<td>memory usage</td>
-						</tr>
-						<tr>
-							<td><code>tr "\n" " "</code></td>
-							<td>translate new lines to spaces</td>
-						</tr>
-
-						</tbody>
-						</table>
-					</section>
-
 			</section>
-					
+
+			<section style="text-align: left;">
+				<h1>Demo</h1>
+				<p>
+					- SeleniumWalker
+				</p>
+			</section>
+			<section style="text-align: left;">
+				<h1>Q&amp;A</h1>
+			</section>
+
 			<section style="text-align: left;">
 				<h1>OVER TO YOU</h1>
 				<p>
